@@ -14,6 +14,7 @@ class WorkoutSession(models.Model):
 
 class Exercise(models.Model):
     workout_session = models.ForeignKey(WorkoutSession, on_delete=models.CASCADE, related_name="exercises")
+    name = models.TextField(max_length=100, blank=True)
     sets = models.IntegerField(null=True, blank=True)
     reps = models.IntegerField(null=True, blank=True)
     rpe = models.IntegerField(null=True, blank=True)
