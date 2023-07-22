@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react'
+import { Card, CardHeader, CardContent, Typography } from '@mui/material';
+
 
 function WorkoutSessionList() {
     const [workoutSessions, setWorkoutSessions] = useState([])
@@ -9,26 +11,29 @@ function WorkoutSessionList() {
     }, []);
     
     return (
+
         workoutSessions.map(session => (
-            <div key={session.id}>
-                <h3>Workout: {session.id} </h3>
-                <p>{session.date}, {session.duration}</p>
-                <p>{session.notes}</p>
-                <h3>Exercises: </h3>
+            <Card key={session.id} sx={{ margin: 'auto', marginBottom: '16px', maxWidth: '400px', marginTop: '16px'}}>
+                <CardHeader title={`Workout: ${session.id}`} sx={{ textAlign: 'center' }} />
+                <CardContent sx={{ textAlign: 'center' }}>
+                    <Typography>{`${session.date}, ${session.duration}`}</Typography>
+                    <Typography>{session.notes}</Typography>
+                    <Typography variant="h6">Exercises:</Typography>
                     {session.exercises.map(exercise => (
-                        <div key={exercise.id}>
-                            <p>Name: {exercise.name}</p>
-                            {exercise.set.map((s,i) => (
-                                <div key={s.id}>
-                                    <p>Set: {i + 1}</p>
-                                    <p>Reps: {s.reps}</p>
-                                    <p>Rpe: {s.rpe}</p>
-                                    <p>Weight: {s.weight}</p>
+                        <div key={exercise.id} sx={{ marginLeft: '16px' }}>
+                            <Typography variant="subtitle1">{`Name: ${exercise.name}`}</Typography>
+                            {exercise.set.map((s, i) => (
+                                <div key={s.id} sx={{ marginLeft: '16px' }}>
+                                    <Typography>{`Set: ${i + 1}`}</Typography>
+                                    <Typography>{`Reps: ${s.reps}`}</Typography>
+                                    <Typography>{`Rpe: ${s.rpe}`}</Typography>
+                                    <Typography>{`Weight: ${s.weight}`}</Typography>
                                 </div>
                             ))}
                         </div>
                     ))}
-            </div>
+                </CardContent>
+            </Card>
         ))
     );
 }
