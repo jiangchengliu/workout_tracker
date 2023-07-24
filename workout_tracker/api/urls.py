@@ -3,5 +3,7 @@ from .views import *
 
 urlpatterns = [
     path('', index, name="index"),
-    path('api', WorkoutSessionView.as_view())
+    path('WorkoutHistory', WorkoutSessionView.as_view()),
+    path('WorkoutHistoryDelete/<int:pk>', WorkoutSessionDelete.as_view())
+
 ]

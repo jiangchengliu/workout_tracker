@@ -13,5 +13,9 @@ class WorkoutSessionView(generics.ListAPIView):
     queryset = WorkoutSession.objects.all()
     serializer_class = WorkoutSessionSerializer
 
+class WorkoutSessionDelete(generics.DestroyAPIView):
+    queryset = WorkoutSession.objects.all()
+    serializer_class = WorkoutSessionSerializer
+
 
 
