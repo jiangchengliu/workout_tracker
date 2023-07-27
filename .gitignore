@@ -1,4 +1,5 @@
 /venv
 __pycache__/
 workout_tracker/db.sqlite3
+workout_tracker/configs.py
 
