@@ -32,6 +32,17 @@ def get_exercises(request):
     response = requests.get(url, headers=headers)
     return JsonResponse(response.json(), safe=False)
 
+def get_exercise(request, id):
+    url = f"https://exercisedb.p.rapidapi.com/exercises/exercise/{id}"
+
+    headers = {
+        "X-RapidAPI-Key": EDB_API_KEY,
+        "X-RapidAPI-Host": "exercisedb.p.rapidapi.com"
+    }
+
+    response = requests.get(url, headers=headers)
+    return JsonResponse(response.json(), safe=False)
+
 
 
 

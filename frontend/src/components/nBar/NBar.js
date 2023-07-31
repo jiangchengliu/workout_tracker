@@ -3,6 +3,7 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import { BrowserRouter as Router, Routes, Route, Link as RouterLink } from "react-router-dom";
 import WorkoutSessionList from '../workoutSessionList/WorkoutSessionList';
 import ExerciseList from '../exerciseList/ExerciseList';
+import ExerciseDetail from '../exerciseList/ExerciseDetails';
 
 
 function NavBar() {
@@ -26,6 +27,7 @@ function NavBar() {
             <Routes>
                 <Route path="/workouts" element={<WorkoutSessionList />} />
                 <Route path="/exercises" element={<ExerciseList />} />
+                <Route path="/exercises/:id" element={<ExerciseDetail />} />
             </Routes>
         </Router>
     );
