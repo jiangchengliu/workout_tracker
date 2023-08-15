@@ -11,3 +11,15 @@
     justify-content: center;
     padding: 16px;
 }
+
+.exercise {
+    width: 75vw; 
+    height: 75vh; 
+    object-fit: contain; 
+}
+
+.exercise-view {
+    display: flex;
+    justify-content: center;
+}
+

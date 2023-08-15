@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link as RouterLink } from "reac
 import WorkoutSessionList from '../workoutSessionList/WorkoutSessionList';
 import ExerciseList from '../exerciseList/ExerciseList';
 import ExerciseDetail from '../exerciseList/ExerciseDetails';
+import CreateWorkout from '../newWorkout/newWorkout';
 
 
 function NavBar() {
@@ -28,6 +29,7 @@ function NavBar() {
                 <Route path="/workouts" element={<WorkoutSessionList />} />
                 <Route path="/exercises" element={<ExerciseList />} />
                 <Route path="/exercises/:id" element={<ExerciseDetail />} />
+                <Route path="/create" element={<CreateWorkout />} />
             </Routes>
         </Router>
     );
