@@ -1,26 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from rest_framework import generics
+from rest_framework import viewsets
+from rest_framework import routers
 from .models import *
 from .serializers import *
 from django.http import JsonResponse
 import requests
-from configs import EDB_API_KEY
+from configs import EDB_API_KEY, YOUTUBE_API_Key
 
 
 
 # Create your views here.
-
-def index(request):
-    return HttpResponse('Hello World')
-
-class WorkoutSessionView(generics.ListAPIView):
+class WorkoutSessionViewSet(viewsets.ModelViewSet):
     queryset = WorkoutSession.objects.all()
     serializer_class = WorkoutSessionSerializer
 
-class WorkoutSessionDelete(generics.DestroyAPIView):
-    queryset = WorkoutSession.objects.all()
-    serializer_class = WorkoutSessionSerializer
 
 def get_exercises(request):
     url = "https://exercisedb.p.rapidapi.com/exercises"
@@ -42,6 +36,13 @@ def get_exercise(request, id):
 
     response = requests.get(url, headers=headers)
     return JsonResponse(response.json(), safe=False)
+
+def youtube_videos(request, query):
+    API_KEY = YOUTUBE_API_Key
+    url = f'https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q={query}&type=video&key={API_KEY}'
+    response = requests.get(url)
+    return JsonResponse(response.json(), safe=False)
+
 
 
 

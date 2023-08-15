@@ -1,10 +1,13 @@
-from django.urls import path
+from django.urls import path, include
 from .views import *
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'workouts', WorkoutSessionViewSet)
 
 urlpatterns = [
-    path('', index, name="index"),
-    path('WorkoutHistory', WorkoutSessionView.as_view()),
-    path('WorkoutHistoryDelete/<int:pk>', WorkoutSessionDelete.as_view()),
+    path('', include(router.urls)),
     path('exercises', get_exercises),
-     path('exercises/<str:id>', get_exercise),
+    path('exercises/<str:id>', get_exercise),
+    path('related_videos/<str:query>', youtube_videos)
 ]
