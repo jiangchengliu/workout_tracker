@@ -9,5 +9,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('exercises', get_exercises),
     path('exercises/<str:id>', get_exercise),
-    path('related_videos/<str:query>', youtube_videos)
+    path('related_videos/<str:query>', youtube_videos),
+    path('register/', RegisterView.as_view(), name='register')
 ]
