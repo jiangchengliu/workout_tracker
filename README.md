@@ -4,10 +4,10 @@ An efficient and user-friendly full-stack application to track and manage your w
 
 ## Features
 
-- **Dynamic Workout Logging:** Create, update, and delete your workout sessions.
+- **Dynamic Workout Logging:** Create, update, and delete your workouts.
 - **User Authentication:** Secure JWT authentication to ensure your data's safety.
-- **Responsive Design:** An UI designed with React and styled using Material UI.
-- **Backed by Django:** Powerful backend built with Django to manage and store your workout data.
+- **Frontend Design:** An UI designed with React and styled using Material UI.
+- **Backend:** RESTful API with Django to manage and access your workouts.
 
 ## Getting Started
 
