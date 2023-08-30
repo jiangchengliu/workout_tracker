@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     FormControl, TextField, Button, FormGroup, Dialog,
@@ -7,6 +7,9 @@ import {
 } from '@mui/material';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import './styles.css';
+import AuthContext from '../../context/authContext';
+import jwtDecode from 'jwt-decode';
+
 
 
 
@@ -17,6 +20,9 @@ function CreateWorkout() {
     const [notes, setNotes] = useState('');
     const [exerciseOptions, setExerciseOptions] = useState([]);
     const [open, setOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
+    const { authTokens } = useContext(AuthContext);
+    
     const navigate = useNavigate();
 
 
@@ -32,8 +38,16 @@ function CreateWorkout() {
             });
     }, []);
 
+    const inputHandler = (e) => {
+        setSearchTerm(e.target.value);
+    }
+
+    const filteredExercises = exerciseOptions.filter(exercise => exercise.label.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     const handleExerciseOpen = () => {
         setOpen(true);
+        setSearchTerm("");
     }
 
     const handleExerciseClose = () => {
@@ -73,7 +87,6 @@ function CreateWorkout() {
 
     }
 
-
     const cancelWorkout = () => {
         setExercises([]);
         setNotes('');
@@ -82,15 +95,27 @@ function CreateWorkout() {
     }
 
     const saveWorkout = () => {
+        const decodeToken = jwtDecode(authTokens.access);
+        const userId = decodeToken.user_id;
         const data = {
-            user: 1,
+            user: userId,
             duration: duration,
             notes: notes,
             exercises: exercises
-        }
+        };
+
+        data.exercises.forEach(exercise => {
+            exercise.sets.forEach(set => {
+                if (set.weight === "") {
+                    set.weight = null;
+                }
+            });
+        });
+
         fetch('http://127.0.0.1:8000/workouts/', {
             method: 'POST',
             headers: {
+                'Authorization': `Bearer ${authTokens.access}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -143,8 +168,9 @@ function CreateWorkout() {
                 <Dialog open={open} onClose={handleExerciseClose}>
                     <DialogTitle> Choose an Exercise</DialogTitle>
                     <DialogContent>
+                    <TextField id="filled-basic" label="Search for a exercise" variant="outlined" value={searchTerm} onChange={inputHandler} fullWidth />
                         <List>
-                            {exerciseOptions.map((option, index) => (
+                            {filteredExercises.map((option, index) => (
                                 <ListItemButton onClick={() => addExercise(option)} key={index}>
                                     <ListItemText primary={option.label} />
                                 </ListItemButton>
